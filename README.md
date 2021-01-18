@@ -17,9 +17,9 @@ Put the file 'pre-commit' in '.git/hooks/pre-commit'.
 
 Now CS run on each commit command and check files.
 
-For example you can add tailing space in line
+For example you can add a space in a first symbol of the 11th line:
 
-```define( 'WP_USE_THEMES', true ); ```
+``` use Drupal\Core\DrupalKernel;```
 
 in your index.php file.
 If you try to commit it you can see:
@@ -29,7 +29,7 @@ $ git add index.php
 $ git commit -m "change index.php"
 Checking PHP Lint...
 No syntax errors detected in /.../index.php
-Running Code Sniffer. Code standard WordPress.
+Running Code Sniffer. Code standard Drupal.
 E 1 / 1 (100%)
 
 
@@ -38,16 +38,17 @@ FILE: /.../index.php
 ----------------------------------------------------------------------
 FOUND 1 ERROR AFFECTING 1 LINE
 ----------------------------------------------------------------------
- 14 | ERROR | [x] Whitespace found at end of line
+ 11 | ERROR | [x] Line indented incorrectly; expected 0 spaces, found
+    |       |     1
 ----------------------------------------------------------------------
 PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
 ----------------------------------------------------------------------
 
-Time: 219ms; Memory: 8MB
+Time: 168ms; Memory: 8MB
 
 Fix the error before commit!
 Run
-  ./vendor/bin/phpcbf --standard=WordPress  /.../index.php
+  ./vendor/bin/phpcbf --standard=Drupal,DrupalPractice  /.../index.php
 for automatic fix or fix it manually.
 ```
 
@@ -55,9 +56,9 @@ for automatic fix or fix it manually.
 
 ```vendor/```
 
-[Optional] If you need to check not only .php files, please fix the 4th line in pre-commit file to:
+[Optional] If you need to check only .php files, please fix the 4th line in pre-commit file to:
 
-STAGED_FILES_CMD=`git diff --cached --name-only --diff-filter=ACMR HEAD | grep \\\\.*`
+STAGED_FILES_CMD=`git diff --cached --name-only --diff-filter=ACMR HEAD | grep \\\\.php`
 
 
 ## References
